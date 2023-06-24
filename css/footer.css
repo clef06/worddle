@@ -1,0 +1,45 @@
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100vw;
+}
+
+.keyboard-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.kboard-block {
+  width: 40px;
+  height: 60px;
+  border: 1px solid #d3d6da;
+  border-radius: 5px;
+  background-color: #d3d6da;
+  font-size: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+.bottom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.kboard-block__enter {
+  font-size: 18px;
+  width: 100px;
+}
+
+.kboard-block__back {
+  width: 80px;
+}
+
+.kboard-block__back img {
+  width: 30px;
+}
