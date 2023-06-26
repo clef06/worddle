@@ -25,4 +25,6 @@ main {
   border: 3px solid #d3d6da;
   width: 60px;
   height: 60px;
+  font-size: 24px;
+  font-weight: bold;
 }
