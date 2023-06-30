@@ -5,7 +5,34 @@ let attempts = 0;
 let index = 0;
 
 let timer;
+
+const handleKeyClick = (event) => {
+  const key = event.target.innerText;
+  if (key) {
+    const keyBlock = event.target;
+    keyBlock.style.background = "#6AAA64";
+
+    const thisBlock = document.querySelector(
+      `.board-block[data-index='${attempts}${index}']`
+    );
+    thisBlock.innerText = key.toUpperCase();
+    index++;
+
+    if (index === 5) {
+      handleEnterKey();
+    }
+  }
+};
+
+const attachKeyClickEvent = () => {
+  const keyboardKeys = document.querySelectorAll(".kboard-block");
+  keyboardKeys.forEach((key) => {
+    key.addEventListener("click", handleKeyClick);
+  });
+};
+
 function appStart() {
+  attachKeyClickEvent();
   const displayGameover = () => {
     const div = document.createElement("div");
     div.innerText = "게임이 종료됐습니다.";
@@ -45,14 +72,54 @@ function appStart() {
       if (입력한_글자 === 정답_글자) {
         맞은_갯수 += 1;
         block.style.background = "#6AAA64";
-      } else if (정답.includes(입력한_글자)) block.style.background = "#C9B458";
-      else block.style.background = "#787c7e";
+        const keyBlock = document.querySelector(
+          `.kboard-block[data-key='${정답_글자}']`
+        );
+        keyBlock.style.background = "#6AAA64";
+        const box_Spinning = [
+          { transform: "rotate(0) scale(1)" },
+          { transform: "rotate(360deg) scale(0)" },
+        ];
+        const box_Timing = {
+          duration: 2000,
+          iterations: 1,
+        };
+        const move_box = document.querySelector(
+          `.board-block[data-index='${attempts}${i}']`
+        );
+        move_box.animate(box_Spinning, box_Timing);
+      } else if (정답.includes(입력한_글자)) {
+        block.style.background = "#C9B458";
+        const keyBlock = document.querySelector(
+          `.kboard-block[data-key='${입력한_글자}']`
+        );
+        keyBlock.style.background = "#C9B458";
+        const same_box_Spinning = [
+          { transform: "rotate(0) scale(0.5)" },
+          { transform: "rotate(0) scale(0)" },
+        ];
+        const same_box_Timing = {
+          duration: 500,
+          iterations: 1,
+        };
+        const same_move_box = document.querySelector(
+          `.board-block[data-index='${attempts}${i}']`
+        );
+        same_move_box.animate(same_box_Spinning, same_box_Timing);
+      } else {
+        block.style.background = "#787c7e";
+        const keyBlock = document.querySelector(
+          `.kboard-block[data-key='${입력한_글자}']`
+        );
+        keyBlock.style.background = "#787c7e";
 
-      block.style.color = "white";
+        block.style.color = "white";
+      }
     }
     if (맞은_갯수 === 5) gameover();
     else nextLine();
   };
+
   const handleKeyDown = (event) => {
     const key = event.key.toUpperCase();
     const keyCode = event.keyCode;
